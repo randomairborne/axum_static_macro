@@ -30,7 +30,7 @@ macro_rules! static_file {
             #[cfg(debug_assertions)]
             let file = tokio::fs::read_to_string($path)
                 .await
-                .expect("Program is in debug mode and the documentation file was not found!");
+                .expect("Program is in debug mode and the " + $path + " file was not found!");
             (http::StatusCode::OK, headers, file)
         }
     };
