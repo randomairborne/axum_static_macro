@@ -19,11 +19,13 @@
 /// Usage: `static_file!(root, "index.html", "text/html")`
 #[macro_export]
 macro_rules! static_file {
-    
     ($name:ident, $path:literal, $ctype:literal) => {
         pub async fn $name() -> (StatusCode, HeaderMap, String) {
             let mut headers = http::HeaderMap::new();
-            headers.insert(http::header::CONTENT_TYPE, http::HeaderValue::from_static($ctype));
+            headers.insert(
+                http::header::CONTENT_TYPE,
+                http::HeaderValue::from_static($ctype),
+            );
             tracing::debug!("Handling static file request");
             #[cfg(not(debug_assertions))]
             let file = include_str!($path).to_string();
