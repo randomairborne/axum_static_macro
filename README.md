@@ -11,7 +11,7 @@ Does not panic in release mode. Debug mode can panic if the file does not exist.
 #[tokio::main]
 async fn main() {
     // create our static file handler
-    axum_static_macro::static_file!(static, "index.html", "text/html")
+    axum_static_macro::static_file!(static, "index.html", "text/html");
     // build our application with a single route
     let app = axum::Router::new().route("/", axum::routing::get(static));
     // run it with hyper on localhost:3000
