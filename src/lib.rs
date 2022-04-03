@@ -20,11 +20,11 @@
 #[macro_export]
 macro_rules! static_file {
     ($name:ident, $path:literal, $ctype:literal) => {
-        pub async fn $name() -> (http::StatusCode, http::HeaderMap, String) {
-            let mut headers = http::HeaderMap::new();
+        pub async fn $name() -> (axum::http::StatusCode, axum::http::HeaderMap, String) {
+            let mut headers = axum::http::HeaderMap::new();
             headers.insert(
-                http::header::CONTENT_TYPE,
-                http::HeaderValue::from_static($ctype),
+                axum::http::header::CONTENT_TYPE,
+                axum::http::HeaderValue::from_static($ctype),
             );
             tracing::debug!("Handling static file request");
             #[cfg(not(debug_assertions))]
@@ -33,7 +33,7 @@ macro_rules! static_file {
             let file = tokio::fs::read_to_string(concat!("src/", $path))
                 .await
                 .expect(concat!("Program is in debug mode and the ", $path, " file was not found!"));
-            (http::StatusCode::OK, headers, file)
+            (axum::http::StatusCode::OK, headers, file)
         }
     };
 }

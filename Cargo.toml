@@ -10,5 +10,5 @@ categories = ["web-programming"]
 
 
 [dependencies]
-http = "0.2"
+axum = "0.4"
 tracing = "0.1"
