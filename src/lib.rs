@@ -16,7 +16,7 @@
 //! }
 //! ```
 
-/// static_file!(root, "index.html", "text/html")
+/// `static_file!(root, "index.html", "text/html")`
 #[macro_export]
 macro_rules! static_file {
     
