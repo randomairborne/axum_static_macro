@@ -26,7 +26,6 @@ macro_rules! static_file {
                 axum::http::header::CONTENT_TYPE,
                 axum::http::HeaderValue::from_static($ctype),
             );
-            tracing::debug!("Handling static file request");
             #[cfg(not(debug_assertions))]
             let file = include_str!($path).to_string();
             #[cfg(debug_assertions)]
