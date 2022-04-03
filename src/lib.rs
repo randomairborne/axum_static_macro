@@ -1,5 +1,5 @@
 //! This macro takes an argument of a file path and fills out the proper statics.
-//! In debug mode, it will read the file live so you can change it without recompiling the program.
+//! In debug mode, it will read the file live so you can change it without recompiling the program. Note: You must be in the crate root for this to work.
 //! It takes three arguments. Function name (this is what you wrap in the axum get handler), file path, and content type.
 //! Does not panic in release mode. Debug mode can panic if the file does not exist.
 //! ```rust
@@ -20,7 +20,7 @@
 #[macro_export]
 macro_rules! static_file {
     ($name:ident, $path:literal, $ctype:literal) => {
-        pub async fn $name() -> (StatusCode, HeaderMap, String) {
+        pub async fn $name() -> (http::StatusCode, http::HeaderMap, String) {
             let mut headers = http::HeaderMap::new();
             headers.insert(
                 http::header::CONTENT_TYPE,
@@ -30,9 +30,9 @@ macro_rules! static_file {
             #[cfg(not(debug_assertions))]
             let file = include_str!($path).to_string();
             #[cfg(debug_assertions)]
-            let file = tokio::fs::read_to_string($path)
+            let file = tokio::fs::read_to_string(concat!("src/", $path))
                 .await
-                .expect("Program is in debug mode and the " + $path + " file was not found!");
+                .expect(concat!("Program is in debug mode and the ", $path, " file was not found!"));
             (http::StatusCode::OK, headers, file)
         }
     };
