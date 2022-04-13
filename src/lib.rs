@@ -16,9 +16,11 @@
 //! }
 //! ```
 
+/// A collection of content MIME types, for use as the third argument of static_file
+pub mod content_types;
+
 /// Usage: `static_file!(root, "index.html", "text/html")`
 
-pub mod content_types;
 #[macro_export]
 macro_rules! static_file {
     ($name:ident, $path:literal, $ctype:literal) => {
