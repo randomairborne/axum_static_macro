@@ -1,6 +1,6 @@
 [package]
 name = "axum_static_macro"
-version = "1.1.0"
+version = "1.1.1"
 edition = "2021"
 description = "A macro to serve static files from the binary in Axum"
 license = "MIT OR Apache-2.0"
@@ -9,4 +9,6 @@ keywords = ["axum", "macro", "static_files"]
 categories = ["web-programming"]
 
 
-[dependencies]
+[dev-dependencies]
+axum = "0.4"
+tokio = "1"
