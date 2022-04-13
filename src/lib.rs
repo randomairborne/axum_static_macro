@@ -17,6 +17,8 @@
 //! ```
 
 /// Usage: `static_file!(root, "index.html", "text/html")`
+
+pub mod content_types;
 #[macro_export]
 macro_rules! static_file {
     ($name:ident, $path:literal, $ctype:literal) => {
@@ -36,3 +38,4 @@ macro_rules! static_file {
         }
     };
 }
+
