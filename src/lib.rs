@@ -23,7 +23,7 @@ pub mod content_types;
 
 #[macro_export]
 macro_rules! static_file {
-    ($name:ident, $path:literal, $ctype:literal) => {
+    ($name:ident, $path:literal, $ctype:expr) => {
         pub async fn $name() -> (axum::http::StatusCode, axum::http::HeaderMap, String) {
             let mut headers = axum::http::HeaderMap::new();
             headers.insert(
@@ -35,7 +35,11 @@ macro_rules! static_file {
             #[cfg(debug_assertions)]
             let file = tokio::fs::read_to_string(concat!("src/", $path))
                 .await
-                .expect(concat!("Program is in debug mode and the ", $path, " file was not found!"));
+                .expect(concat!(
+                    "Program is in debug mode and the ",
+                    $path,
+                    " file was not found!"
+                ));
             (axum::http::StatusCode::OK, headers, file)
         }
     };
