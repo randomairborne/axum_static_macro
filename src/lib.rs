@@ -7,7 +7,7 @@
 //! ```rust
 //! #[tokio::main]
 //! async fn main() {
-//!     axum_static_macro::static_file!(index, "index.html", axum_static_macro::content_types::HTML);
+//!     axum_static_macro::static_file!(index, "index.html", "text/html");
 //!     // build our application with a single route
 //!     let app = axum::Router::new().route("/", axum::routing::get(index));
 //!     // run it with hyper on localhost:3000
@@ -18,24 +18,21 @@
 //! }
 //! ```
 
-/// A collection of content MIME types, for use as the third argument of static_file
-pub use content_types;
-
 /// Usage: `static_file!(root, "index.html", "text/html")`
 
 #[macro_export]
 macro_rules! static_file {
     ($name:ident, $path:literal, $ctype:expr) => {
-        pub async fn $name() -> (axum::http::StatusCode, axum::http::HeaderMap, String) {
+        pub async fn $name() -> (axum::http::StatusCode, axum::http::HeaderMap, Vec<u8>) {
             let mut headers = axum::http::HeaderMap::new();
             headers.insert(
                 axum::http::header::CONTENT_TYPE,
                 axum::http::HeaderValue::from_static($ctype),
             );
             #[cfg(not(debug_assertions))]
-            let file = include_str!($path).to_string();
+            let file = include_bytes!($path);
             #[cfg(debug_assertions)]
-            let file = tokio::fs::read_to_string(concat!("src/", $path))
+            let file = tokio::fs::read(concat!("src/", $path))
                 .await
                 .expect(concat!(
                     "Program is in debug mode and the ",
