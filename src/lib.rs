@@ -30,7 +30,7 @@ macro_rules! static_file {
                 axum::http::HeaderValue::from_static($ctype),
             );
             #[cfg(not(debug_assertions))]
-            let file = include_bytes!($path);
+            let file = include_bytes!($path).to_vec();
             #[cfg(debug_assertions)]
             let file = tokio::fs::read(concat!("src/", $path))
                 .await
