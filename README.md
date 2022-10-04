@@ -1,4 +1,13 @@
 # Axum Static Macro
+
+# ! ! ! THIS REPOSITORY IS NO LONGER MAINTAINED! ! ! !
+
+Instead, you can use 
+
+```rust
+router.route("/", get(|| async { ([("Content-Type", "text/html")], include_bytes!("index.html")) }))
+```
+
 ```toml
 axum = "0.4" # Required
 axum_static_macro = "1"

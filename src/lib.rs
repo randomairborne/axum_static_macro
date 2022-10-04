@@ -1,3 +1,11 @@
+//! # ! ! ! THIS REPOSITORY IS NO LONGER MAINTAINED! ! ! ! 
+//! 
+//! Instead, you can use
+//!
+//! ```rust   
+//! router.route("/", get(|| async { ([("Content-Type", "text/html")], include_bytes!("index.html")) }))
+//! ```  
+//!
 //! This macro takes an argument of a file path and fills out the proper statics.
 //! In debug mode, it will read the file live so you can change it without recompiling the program. Note: You must be in the crate root for this to work.
 //! It takes three arguments. Function name (this is what you wrap in the axum get handler), file path, and content type.
