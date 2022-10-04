@@ -1,5 +1,5 @@
-//! # ! ! ! THIS REPOSITORY IS NO LONGER MAINTAINED! ! ! ! 
-//! 
+//! # ! ! ! THIS REPOSITORY IS NO LONGER MAINTAINED! ! ! !
+//!
 //! Instead, you can use
 //!
 //! ```rust   
@@ -51,4 +51,3 @@ macro_rules! static_file {
         }
     };
 }
-
